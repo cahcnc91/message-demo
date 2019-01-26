@@ -33,7 +33,7 @@ const TabItem = props => {
 
   if (selectedTab === 0) {
     board = (
-      <Attachments />
+      <Notes />
     )
   } else if (selectedTab === 1) {
     board = (
@@ -41,7 +41,7 @@ const TabItem = props => {
     )
   } else {
     board = (
-      <Notes />
+      <Attachments />
     )
   }
 

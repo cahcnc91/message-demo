@@ -35,15 +35,15 @@ function InputBaseComponent(props) {
   return (
     <Paper className={classes.root} elevation={1}>
       <InputBase className={classes.input} placeholder="Messages Here" />
-      <IconButton className={classes.iconButton} aria-label="Search">
+      <IconButton color="grey" className={classes.iconButton} aria-label="Emoticon">
         <InsertEmoticonOutlined />
       </IconButton>
       <Divider className={classes.divider} />
-      <IconButton color="primary" className={classes.iconButton} aria-label="Directions">
+      <IconButton color="grey" className={classes.iconButton} aria-label="Attach">
         <AttachFileOutlined />
       </IconButton>
       <Divider className={classes.divider} />
-      <IconButton color="primary" className={classes.iconButton} aria-label="Directions">
+      <IconButton color="grey" className={classes.iconButton} aria-label="Settings">
         <Settings />
       </IconButton>
     </Paper>

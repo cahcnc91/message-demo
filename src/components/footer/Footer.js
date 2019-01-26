@@ -7,20 +7,14 @@ import classNames from "classnames";
 
 const styles = theme => ({
   root: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    display: "flex",
-    height: '6vh',
+    height: "100%"
   },
   alignCenterColumn: {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
     backgroundColor: "#222222",
-    justifyContent: "flex-end"
-  },
-  button: {
-    margin: theme.spacing.unit
+    justifyContent: "center"
   },
   footerText: {
     color: "#ffffff"
@@ -34,17 +28,14 @@ function Footer(props) {
     <Paper
       className={classNames(
         classes.root,
-        classes.alignCenterColumn,
-        classes.position
+        classes.alignCenterColumn
       )}
       elevation={1}
     >
       <Typography component="p" className={classes.footerText}>
         © 2019 Camila Niero
       </Typography>
-      <Typography component="p" className={classes.footerText}>
-        Terms of Service | Privacy Policy
-      </Typography>
+
     </Paper>
   );
 }

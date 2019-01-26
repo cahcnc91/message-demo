@@ -1,17 +1,13 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Paper from "@material-ui/core/Paper";
 
 import ListContacts from "./ListContacts";
 import OptionsContacts from "./OptionsContacts";
 
-const styles = theme => ({
-  root: {
-    height: "100%"
-  },
+const styles = {
   contacts: {
     textAlign: "center",
     backgroundColor: "#F8F8F8",
@@ -33,7 +29,7 @@ const styles = theme => ({
     margin: 10,
     borderRadius: "20px"
   }
-});
+};
 
 class Contacts extends React.Component {
   constructor(props) {
@@ -45,6 +41,7 @@ class Contacts extends React.Component {
       chatList: true,
       search: ""
     };
+
     this.handleListChoice = this.handleListChoice.bind(this);
     this.handleChatFilter = this.handleChatFilter.bind(this);
   }
@@ -61,29 +58,29 @@ class Contacts extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, allChats } = this.props;
     const { userChatList, userGroupList } = this.props;
 
+
     return (
-      <Grid className={classes.root}>
-        <Paper className={classes.contacts}>
-          <OptionsContacts
-            className={classes.optionsContacts}
-            chatFilter={this.state.chatFilter}
-            handleListChoice={this.handleListChoice}
-            onChatFilterChange={this.handleChatFilter}
-          />
-          <ListContacts
-            className={classes.contactsList}
-            userChatList={userChatList}
-            userGroupList={userGroupList}
-            groupList={this.state.groupList}
-            chatList={this.state.chatList}
-            setActiveChat={this.props.setActiveChat}
-          />
-          <div className={classes.searchBox} />
-        </Paper>
-      </Grid>
+      <Paper className={classes.contacts}>
+        <OptionsContacts
+          className={classes.optionsContacts}
+          chatFilter={this.state.chatFilter}
+          handleListChoice={this.handleListChoice}
+          onChatFilterChange={this.handleChatFilter}
+        />
+        <ListContacts
+          className={classes.contactsList}
+          allChats={allChats}
+          userChatList={userChatList}
+          userGroupList={userGroupList}
+          groupList={this.state.groupList}
+          chatList={this.state.chatList}
+          setActiveChat={this.props.setActiveChat}
+        />
+        <div className={classes.searchBox} />
+      </Paper>
     );
   }
 }
@@ -92,4 +89,14 @@ Contacts.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Contacts);
+const mapStateToProps = state => {
+  return {
+    allChats: state.chat.allChats
+  };
+};
+
+export default withStyles(styles)(
+  connect(
+    mapStateToProps
+  )(Contacts)
+);

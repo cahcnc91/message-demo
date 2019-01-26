@@ -1,29 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Button } from "@material-ui/core/";
+import { Grid, Button, Typography } from "@material-ui/core/";
 import { withStyles } from "@material-ui/core/styles";
+import { connect } from 'react-redux';
 
 import ChatHeader from "./ChatHeader";
 import ChatBody from "./ChatBody";
 import InputBaseComponent from "./InputBaseComponent";
+import { DriveEta } from "@material-ui/icons";
 
 const styles = theme => ({
   root: {
     height: '100%'
   },
-  container: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
   },
-  chatSection: {
-    flexGrow: 1
-  },
   button: {
-    margin: `${theme.spacing.unit * 2}px 0` 
+    margin: `${theme.spacing.unit * 3}px 0`,
+    backgroundColor: "#4886B0",
+    color: "white" 
   },
   input: {
     height: '80%'
@@ -33,10 +30,7 @@ const styles = theme => ({
 class Chat extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      text: ""
-    }  
+ 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -48,29 +42,41 @@ class Chat extends React.Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const newMessage = {
-      //will check data
-    };
-
   }
 
 
   render() {
     const { classes, activeChat } = this.props;
+    let displayChat;
+
+    if (activeChat === "") {
+      displayChat = (
+        <Typography variant="h6">Choose a chat</Typography>
+      );
+
+    } else {
+      displayChat = (
+        <div>
+            <ChatHeader />
+            <ChatBody />
+        </div>
+      );
+    }
 
     return (
-      <Grid container className={classes.root} direction={"column"}>
-        <Grid style={{ height: "85%" }} className={classes.chatSection}>
-          <ChatHeader />
-          <ChatBody activeChat={activeChat} />
-        </Grid>
-        <Grid style={{ height: "15%", display:"flex", flexDirection: "row" }}>
-          <InputBaseComponent className={classes.input}/>
-          <Button variant="contained" className={classes.button}>
-            Send
-          </Button>
-        </Grid>
-      </Grid>
+      <div className={classes.root}>
+          <div style={{ height: "85%" }}>
+            {displayChat}
+          </div>
+          
+          <div style={{ height: "15%", display: 'flex', flexDirection: 'row' }}>
+            <InputBaseComponent className={classes.input}/>
+            <Button variant="contained" className={classes.button}>
+              Send
+            </Button>
+          </div>
+          
+      </div>
     );
   }
 };
@@ -79,4 +85,12 @@ Chat.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Chat);
+const mapStateToProps = state => {
+  return {
+    activeChat: state.chat.activeChat
+  };
+};
+
+
+export default withStyles(styles)(connect(mapStateToProps)(Chat));
+

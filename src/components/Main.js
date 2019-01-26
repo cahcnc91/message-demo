@@ -1,34 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import Chat from "./chat";
 import Contacts from "./contacts";
 import LeftBar from "./leftbar";
 import { truncate } from "fs";
+import { getUser } from '../../src/store/actions/index';
+import { connect } from 'react-redux';
 
-const styles = () => ({
-  root: {
-    height: '100%'
-  }
-});
-
-class Root extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeChat: ""
-    };
-    this.setActiveChat = this.setActiveChat.bind(this);
-  }
-
-  setActiveChat(chat) {
-    this.setState({ activeChat: chat });
-  }
-
+class Main extends React.Component {
+    
   render() {
-    const { classes } = this.props;
+    let content;
 
     const userChatList = [
       {
@@ -57,27 +39,28 @@ class Root extends React.Component {
     const gridMiddleProps = { xl: 6, lg: 6, md: 6, xs: 6, sm: 6 };
 
     return (
-      <Grid className={classes.root} container>
+      <Grid style={{height: "80vh"}} container>
         <Grid item {...gridSidesProps}>
           <LeftBar />
         </Grid>
         <Grid item {...gridMiddleProps}>
-          <Chat activeChat={this.state.activeChat} />
+          <Chat />
+          {content}
         </Grid>
         <Grid item {...gridSidesProps}>
-          <Contacts
-            userChatList={userChatList}
-            userGroupList={userGroupList}
-            setActiveChat={this.setActiveChat}
-          />
+          <Contacts userChatList={userChatList} userGroupList={userGroupList} />
         </Grid>
       </Grid>
     );
-  }
+
+  };
 }
 
-Root.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+const mapStateToProp = state => ({
+  auth: state.auth
+});
 
-export default withStyles(styles)(Root);
+export default connect(
+  mapStateToProp,
+  { getUser }
+)(Main);

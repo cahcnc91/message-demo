@@ -20,25 +20,20 @@ const styles = theme => ({
 });
 
 class ChatBody extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
 
   render() {
-    const { classes, activeChat } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
         <div className={classes.date}>
           <Typography>Wednesday, June9, 2017</Typography>
         </div>
-        <Messages activeChat={activeChat} />
+        <Messages />
         <div className={classes.date}>
           <Typography>Wednesday, June9, 2017</Typography>
         </div>
-        <Messages activeChat={activeChat} />
+        <Messages />
       </div>
     );
   }

@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { List, Typography } from '@material-ui/core/';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-
+import { List, ListItem, ListItemText, Typography, ListItemSecondaryAction } from '@material-ui/core/';
 
 const styles = theme => ({
   root: {
+    textAlign: 'center',
+    paddingTop: theme.spacing.unit * 1
+  },
+  list: {
     width: '100%',
-    height: '52vh',
-    backgroundColor: theme.palette.background.paper,
+    height: '60vh',
     overflow: 'auto',
     backgroundColor: '#F8F8F8',
-    
   },
   listItem: {
     backgroundColor: '#F8F8F8',
@@ -50,9 +47,9 @@ class Attachments extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div style={{textAlign: 'center'}}>
-        <Typography variant="h6" gutterBottom>Attachments</Typography>
-        <List className={classes.root}>
+      <div className={classes.root}>
+        <Typography variant="h6">Attachments</Typography>
+        <List className={classes.list}>
           {[0, 1, 2, 3, 4, 5, 6, 7].map(value => (
             <ListItem key={value} className={classes.listItem} style={{backgroundColor: '#F8F8F8'}}>
               <img

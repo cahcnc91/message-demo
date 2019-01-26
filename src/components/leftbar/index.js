@@ -7,7 +7,6 @@ import TabItem from "./TabItem";
 
 const styles = () => ({
   root: {
-    flexGrow: 1,
     height: "100%"
   }
 });

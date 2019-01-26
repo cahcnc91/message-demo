@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { IconButton, FormControl, Select, Typography, MenuItem } from "@material-ui/core/";
+import { IconButton, FormControl, Select, MenuItem } from "@material-ui/core/";
 import { Settings, Group } from '@material-ui/icons/';
 import { withStyles } from "@material-ui/core/styles";
 
@@ -9,7 +9,8 @@ const styles = theme => ({
     width: "100%",
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: theme.spacing.unit * 2
   },
   button: {
     color: "#4886B0",

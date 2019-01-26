@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import { Typography, List, ListItem, ListItemText, Avatar, Button } from '@material-ui/core/';
 import IconButton from '@material-ui/core/IconButton';
 import { Call, Videocam, Settings } from '@material-ui/icons/';
 import classNames from 'classnames';
+
+import { connect } from 'react-redux';
+import { selectChat } from '../../store/actions/index';
 
 const styles = theme => ({
   container: {
@@ -48,15 +46,9 @@ const styles = theme => ({
 });
 
 class ChatHeader extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-
-  }
 
   render() {
-    const { classes } = this.props;
+    const { classes, activeChat } = this.props;
     
     return (
       <div className={classes.container}>
@@ -67,7 +59,7 @@ class ChatHeader extends React.Component {
               primary={
                 <div style={{display:"flex", flexDirection: 'row', alignItems: 'center'}}>
                   <Typography variant="h5" color="textPrimary">
-                    <b>Camila Niero</b>
+                    <b>{activeChat.senderName}</b>
                   </Typography>
                   <IconButton style={{marginLeft: 3}}>
                     <Settings fontSize="small" style={{color: "#36A000"}}/>
@@ -99,4 +91,16 @@ ChatHeader.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ChatHeader);
+const mapStateToProps = state => {
+  return {
+    activeChat: state.chat.activeChat
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSelectChat: (chat) => dispatch(selectChat(chat))
+  };
+};
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ChatHeader));

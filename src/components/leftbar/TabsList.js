@@ -20,7 +20,7 @@ class TabsList extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const icons = [<Attachment />, <Link />, <Menu />];
+    const icons = [<Menu />, <Attachment />, <Link />];
 
     return (
         <div className={classes.tabs}>

@@ -1,22 +1,44 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Root from "./components/Root";
-import MenuAppBar from "./components/navbar";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
+import Main from "./components/Main";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import { Paper } from "@material-ui/core/";
+import { firebaseApp } from "./firebase";
+import PrivateRoute from './components/common/PrivateRoute'
 
-const App = () => {
-  return (
-    <div style={{ height: "100vh", border: "4vh solid #D6DFE4", margin: 0, boxSizing: "border-box" }}>
-      <div style={{borderRadius: '15px'}}>
-        <MenuAppBar/>
-        <Paper style={{height: "72vh"}}>
-          <Root/>
+
+firebaseApp.auth().onAuthStateChanged(user => {
+  if (user) {
+    console.log(user);
+  } else {
+    console.log("user sign out or needs to sign in");
+  }
+});
+
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <Paper style={{ height: "100vh", margin: 0, boxSizing: "border-box" }}>
+          <div style={{ height: "12vh" }}>
+            <Navbar />
+          </div>
+          <Route exact path="/" component={Login}/>
+          <Route exact path="/register" component={Register} />
+          <Switch>
+            
+            <PrivateRoute exact path="/app" component={Main} />
+          </Switch>
+          <div style={{ height: "8vh" }}>
+            <Footer />
+          </div>
         </Paper>
-        <Footer/>
-      </div>
-        
-    </div>
-  );
-};
+      </Router>
+    );
+  }
+}
 
 export default App;
