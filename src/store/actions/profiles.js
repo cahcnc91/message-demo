@@ -1,4 +1,3 @@
-import * as firebase from 'firebase';
 import { CREATE_PROFILE } from './actionTypes';
 
 export const createProfile = (profile) => {

@@ -47,9 +47,11 @@ export class Login extends React.Component {
     };
   }
 
+  /*
   componentWillMount() {
     this.props.getUser();
   }
+  */
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
@@ -63,10 +65,7 @@ export class Login extends React.Component {
     let email = this.refs.email.value.trim();
     let password = this.refs.password.value.trim();
 
-    this.props.login(email,password)
-      .catch(err => {
-        this.setState({errorMessage: err.message})
-      });
+    this.props.login(email,password);
   }
 
   render() {

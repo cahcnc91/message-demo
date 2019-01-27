@@ -1,7 +1,8 @@
 import firebase from 'firebase/app';
-import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/firestore';
 
-var config = {
+var firebaseConfig = {
   apiKey: "AIzaSyDLEEgDDy1sdLasO9rVx4L3qODvx4WM7wM",
   authDomain: "message-demo-a7ac6.firebaseapp.com",
   databaseURL: "https://message-demo-a7ac6.firebaseio.com",
@@ -10,9 +11,10 @@ var config = {
   messagingSenderId: "761592138928"
 };
 
-export const firebaseApp = firebase.initializeApp(config);
-export const auth = firebaseApp.auth();
+const fb = firebase.initializeApp(firebaseConfig);
+firebase.firestore().settings({timestampsInSnapshots: true })
 
+export default fb;
 
 
 
