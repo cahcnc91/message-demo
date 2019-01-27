@@ -1,3 +1,3 @@
-export { addMessage, selectChat } from './chats';
+export { addMessage, selectChat, createChat } from './chats';
 export { getUser, login, logout, createAccount } from './auth';
-export { newProfile } from './profiles';
+export { createProfile } from './profiles';

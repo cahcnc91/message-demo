@@ -21,6 +21,7 @@ const styles = theme => ({
   },
   iconButton: {
     padding: 10,
+    color: "grey"
   },
   divider: {
     width: 1,
@@ -35,15 +36,15 @@ function InputBaseComponent(props) {
   return (
     <Paper className={classes.root} elevation={1}>
       <InputBase className={classes.input} placeholder="Messages Here" />
-      <IconButton color="grey" className={classes.iconButton} aria-label="Emoticon">
+      <IconButton className={classes.iconButton} aria-label="Emoticon">
         <InsertEmoticonOutlined />
       </IconButton>
       <Divider className={classes.divider} />
-      <IconButton color="grey" className={classes.iconButton} aria-label="Attach">
+      <IconButton className={classes.iconButton} aria-label="Attach">
         <AttachFileOutlined />
       </IconButton>
       <Divider className={classes.divider} />
-      <IconButton color="grey" className={classes.iconButton} aria-label="Settings">
+      <IconButton className={classes.iconButton} aria-label="Settings">
         <Settings />
       </IconButton>
     </Paper>

@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, SELECT_CHAT} from '../actions/actionTypes';
+import { CREATE_CHAT, ADD_MESSAGE, SELECT_CHAT} from '../actions/actionTypes';
 
 const initialState = {
   activeChat: "",
@@ -10,6 +10,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case CREATE_CHAT:
+      return {
+      
+      }
     case ADD_MESSAGE:
       return {
         ...state,

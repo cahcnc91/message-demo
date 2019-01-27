@@ -1,13 +1,11 @@
 import * as firebase from 'firebase';
-import { GET_USER_PROFILE, WRITE_NEW_PROFILE, GET_ALL_PROFILES } from './actionTypes';
+import { CREATE_PROFILE } from './actionTypes';
 
-export function newProfile(avatar, userId, name) {
-  return dispatch => {
-    firebase.database().ref('/profiles' + userId).set({
-      avatar: avatar,
-      name: name
-    })
-  };
+export const createProfile = (profile) => {
+  return (dispatch, getState) => {
+    //async call to database
+    dispatch({type: CREATE_PROFILE, profile})
+  }
 }
 
 

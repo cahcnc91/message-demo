@@ -6,17 +6,8 @@ import Main from "./components/Main";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import { Paper } from "@material-ui/core/";
-import { firebaseApp } from "./firebase";
 import PrivateRoute from './components/common/PrivateRoute'
 
-
-firebaseApp.auth().onAuthStateChanged(user => {
-  if (user) {
-    console.log(user);
-  } else {
-    console.log("user sign out or needs to sign in");
-  }
-});
 
 class App extends Component {
   render() {
