@@ -31,7 +31,7 @@ class Navbar extends React.Component {
     const { classes, auth } = this.props;
     let buttons;
 
-    if (auth.isEmpty === true && auth.isLoaded) {
+    if (!auth.uid) {
       buttons = null;
     } else {
       buttons = (
