@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/rootReducer";
-import { composeWithDevTools } from "redux-devtools-extension";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
 import fb from '../config/fbConfig';
@@ -13,7 +12,8 @@ const enhancers = [
   reduxFirestore(fb),
   reactReduxFirebase(fb, {
     userProfile: "users",
-    useFirestoreForProfile: true
+    useFirestoreForProfile: true,
+    attachAuthIsReady: true
   })
 ];
 

@@ -4,7 +4,6 @@ import Chat from "./chat";
 import Contacts from "./contacts";
 import LeftBar from "./leftbar";
 import { truncate } from "fs";
-import { getUser, createChat, createProfile } from '../../src/store/actions/index';
 import { connect } from 'react-redux';
 
 class Main extends React.Component {
@@ -58,14 +57,12 @@ class Main extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createChat: (chat) => dispatch(createChat(chat)),
-    createProfile: (profile) => dispatch(createProfile(profile))
+
   }
 }
 
 const mapStateToProp = state => ({
-  auth: state.auth,
-  profile: state.profile
+  auth: state.auth
 });
 
 export default connect(mapStateToProp, mapDispatchToProps)(Main);

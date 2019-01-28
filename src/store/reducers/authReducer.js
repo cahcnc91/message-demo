@@ -1,10 +1,7 @@
-import { SET_CURRENT_USER, LOGIN_ERROR, LOGIN_SUCCESS, LOG_OUT_SUCCESS } from "../actions/actionTypes";
-import isEmpty from "../../validation/isEmpty";
+import { LOGIN_ERROR, LOGIN_SUCCESS, LOG_OUT_SUCCESS, CREATE_USER_SUCCESS, CREATE_USER_ERROR } from "../actions/actionTypes";
 
 const initialState = {
-  authError: null,
-  isAuthenticated: false,
-  user: null
+  authError: null
 };
 
 export default function(state = initialState, action) {
@@ -13,18 +10,25 @@ export default function(state = initialState, action) {
       return {
         ...state,
         authError: 'Login Failed',
-        isAuthenticated: false
       };
-    case SET_CURRENT_USER:
+    case LOGIN_SUCCESS:
       return {
         ...state,
-        authError: null,
-        isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        authError: null
       };
     case LOG_OUT_SUCCESS:
-      console.log('signoutsuccess')
+      console.log('signout success')
       return state;
+    case CREATE_USER_SUCCESS:
+      return {
+        ...state,
+        authError: null
+      }
+    case CREATE_USER_ERROR:
+      return {
+        ...state,
+        authError: action.err.message
+      }
     default:
       return state;
   }

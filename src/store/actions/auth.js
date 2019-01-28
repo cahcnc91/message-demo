@@ -1,30 +1,14 @@
 import {
-  SET_CURRENT_USER,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   LOG_OUT_SUCCESS,
-  CURRENT_USER_ERROR
+  CREATE_USER_SUCCESS,
+  CREATE_USER_ERROR
 } from "./actionTypes";
-
-export function getUser(user) {
-  return (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase();
-
-    firebase.auth
-      .onAuthStateChanged(user)
-      .then(() => {
-        dispatch({ type: SET_CURRENT_USER, payload: user });
-      })
-      .catch(err => {
-        dispatch({ type: CURRENT_USER_ERROR, err });
-      });
-  };
-}
 
 export const login = (email, password) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
-
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -41,24 +25,36 @@ export const logout = () => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
-    firebase.auth.signOut().then(() => {
-      dispatch({ type: LOG_OUT_SUCCESS });
-    });
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: LOG_OUT_SUCCESS });
+      });
   };
 };
 
-export const createAccount = (email, password) => {
-  return (dispatch, getState, { getFirebase }) => {
+export const createAccount = (newUser) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    const firestore = getFirestore();
 
     firebase
       .auth()
-      .cre(email, password)
+      .createUserWithEmailAndPassword(
+        newUser.email,
+        newUser.password
+      )
+      .then((resp) => {
+        return firestore.collection('users').doc(resp.user.uid).set({
+          name: newUser.name
+        })
+      })
       .then(() => {
-        dispatch({ type: LOGIN_SUCCESS });
+        dispatch({ type: CREATE_USER_SUCCESS })
       })
       .catch(err => {
-        dispatch({ type: LOGIN_ERROR, err });
+        dispatch({ type: CREATE_USER_ERROR, err });
       });
   };
 };

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core/";
 import { connect } from "react-redux";
-import { getUser, login } from "../../store/actions/index";
+import { login } from "../../store/actions/index";
 
 const styles = {
   boxedView: {
@@ -39,22 +39,10 @@ const styles = {
   }
 };
 
-export class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorMessage: ""
-    };
-  }
-
-  /*
-  componentWillMount() {
-    this.props.getUser();
-  }
-  */
+class Login extends React.Component {
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user) {
+    if (nextProps.auth) {
       this.props.history.push("/app");
     }
   }
@@ -65,15 +53,15 @@ export class Login extends React.Component {
     let email = this.refs.email.value.trim();
     let password = this.refs.password.value.trim();
 
-    this.props.login(email,password);
+    this.props.login(email, password);
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, authError } = this.props;
     let error;
 
-    if (this.state.errorMessage !== "") {
-      error = <p>{this.state.errorMessage}</p>;
+    if (authError !== null) {
+      error = <p>{authError}</p>;
     } else {
       error = null;
     }
@@ -82,7 +70,6 @@ export class Login extends React.Component {
       <div className={classes.boxedView}>
         <div className={classes.box}>
           <h1 style={{ margin: 0, paddingBottom: "20px" }}>Login</h1>
-          {this.state.error ? <p>{this.state.error}</p> : undefined}
           <form
             onSubmit={this.onSubmit.bind(this)}
             noValidate
@@ -122,13 +109,14 @@ Login.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user
+    auth: state.firebase.auth.uid,
+    authError: state.auth.authError
   };
 };
 
 export default withStyles(styles)(
   connect(
     mapStateToProps,
-    { getUser, login }
+    { login }
   )(Login)
 );

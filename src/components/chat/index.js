@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import ChatHeader from "./ChatHeader";
 import ChatBody from "./ChatBody";
 import InputBaseComponent from "./InputBaseComponent";
-import { DriveEta } from "@material-ui/icons";
 
 const styles = theme => ({
   root: {

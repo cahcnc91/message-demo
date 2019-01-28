@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      auth.isAuthenticated === true ? (
+      (auth.uid) ? (
         <Component {...props} />
       ) : (
         <Redirect to="/" />
@@ -22,8 +22,8 @@ PrivateRoute.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    
-  }
-}
+    auth: state.firebase.auth
+  };
+};
 
 export default connect(mapStateToProps)(PrivateRoute);

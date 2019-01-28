@@ -39,32 +39,32 @@ const styles = {
   }
 };
 
-export class Register extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorMessage: ""
-    };
+class Register extends React.Component {
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth) {
+      this.props.history.push("/app");
+    }
   }
 
   onSubmit(e) {
     e.preventDefault();
 
-    let email = this.refs.email.value.trim();
-    let password = this.refs.password.value.trim();
+    let newUser = {
+      name: this.refs.name.value.trim(),
+      email: this.refs.email.value.trim(),
+      password: this.refs.password.value.trim()
+    }
 
-    this.props.createAccount(email, password)
-      .catch(error => {
-        this.setState({ errorMessage: error.message });
-      });
+    this.props.createAccount(newUser)
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, authError } = this.props;
     let error;
 
-    if (this.state.errorMessage !== "") {
-      error = <p>{this.state.errorMessage}</p>;
+    if (authError !== null) {
+      error = <p>{authError}</p>;
     } else {
       error = null;
     }
@@ -73,12 +73,18 @@ export class Register extends React.Component {
       <div className={classes.boxedView}>
         <div className={classes.box}>
           <h1 style={{ margin: 0, paddingBottom: "20px" }}>Register</h1>
-          {this.state.error ? <p>{this.state.error}</p> : undefined}
           <form
             onSubmit={this.onSubmit.bind(this)}
             noValidate
             className={classes.form}
           >
+            <input
+              type="test"
+              className={classes.input}
+              ref="name"
+              name="name"
+              placeholder="Your Name"
+            />
             <input
               type="email"
               className={classes.input}
@@ -110,10 +116,23 @@ Register.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth.uid,
+    authError: state.auth.authError
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createAccount: (newUser) => dispatch(createAccount(newUser))
+  }
+}
+
 export default withStyles(styles)(
   connect(
-    null,
-    { createAccount }
+    mapStateToProps,
+    mapDispatchToProps
   )(Register)
 );
 

@@ -6,7 +6,7 @@ import AppBar from "@material-ui/core/AppBar";
 import { Toolbar, Typography, IconButton } from "@material-ui/core/";
 import MenuIcon from "@material-ui/icons/Menu";
 import { connect } from "react-redux";
-import { getUser, logout } from "../../store/actions/index";
+import { logout } from "../../store/actions/index";
 import { Button, Avatar } from "@material-ui/core/";
 
 const styles = {
@@ -22,15 +22,16 @@ const styles = {
 };
 
 class Navbar extends React.Component {
+
   signOut() {
     this.props.logout();
   }
 
   render() {
-    const { classes, isAuthenticated } = this.props;
+    const { classes, auth } = this.props;
     let buttons;
 
-    if (isAuthenticated === false) {
+    if (auth.isEmpty === true && auth.isLoaded) {
       buttons = null;
     } else {
       buttons = (
@@ -99,13 +100,13 @@ Navbar.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    auth: state.firebase.auth
   };
 };
 
 export default withStyles(styles)(
   connect(
     mapStateToProps,
-    { getUser, logout }
+    { logout }
   )(Navbar)
 );

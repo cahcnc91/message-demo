@@ -13,4 +13,6 @@ const ReactRedux = (
   </Provider>
 );
 
-ReactDOM.render(ReactRedux, document.getElementById("root"));
+store.firebaseAuthIsReady.then(() => {
+  ReactDOM.render(ReactRedux, document.getElementById("root"));
+});
