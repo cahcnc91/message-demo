@@ -48,9 +48,7 @@ const TabItem = props => {
   return (
     <Grid className={classes.root}>
         <div className={classes.notepad}>
-          <div>
           {board}
-          </div>
           <div className={classes.searchBar}>
             <SearchBar
               style={{borderRadius: "20px"}}

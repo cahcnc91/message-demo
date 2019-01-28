@@ -17,7 +17,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   button: {
-    margin: `${theme.spacing.unit * 3}px 0`,
+    margin: `${theme.spacing.unit * 2}px 0`,
     backgroundColor: "#4886B0",
     color: "white" 
   },
@@ -50,12 +50,14 @@ class Chat extends React.Component {
 
     if (activeChat === "") {
       displayChat = (
-        <Typography variant="h6">Choose a chat</Typography>
+        <div style={{ height: "85%" }}>
+          <Typography variant="h6">Choose a chat</Typography>
+        </div>
       );
 
     } else {
       displayChat = (
-        <div>
+        <div style={{ height: "85%" }}>
             <ChatHeader />
             <ChatBody />
         </div>
@@ -64,10 +66,7 @@ class Chat extends React.Component {
 
     return (
       <div className={classes.root}>
-          <div style={{ height: "85%" }}>
-            {displayChat}
-          </div>
-          
+          {displayChat}
           <div style={{ height: "15%", display: 'flex', flexDirection: 'row' }}>
             <InputBaseComponent className={classes.input}/>
             <Button variant="contained" className={classes.button}>

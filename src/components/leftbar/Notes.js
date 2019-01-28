@@ -11,8 +11,8 @@ const styles = theme => ({
   },
   textarea: {
     border: '1px solid #F8F8F8',
-    height: '50vh',
-    width: '30vh'
+    height: '75%',
+    width: '80%'
   }
 });
 
